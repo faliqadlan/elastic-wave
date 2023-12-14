@@ -81,8 +81,13 @@ end
 
 function gauss_legendre_quadrature()
     # Define quadrature points and weights for 2d
-    points = [-sqrt((3 / 7) - ((2 / 7) * sqrt(6 / 5))), sqrt((3 / 7) - ((2 / 7) * sqrt(6 / 5))), -sqrt((3 / 7) + ((2 / 7) * sqrt(6 / 5))), sqrt((3 / 7) + ((2 / 7) * sqrt(6 / 5)))]
-    
+    points = [
+        (-sqrt((3 / 7) - ((2 / 7) * sqrt(6 / 5))), -sqrt((3 / 7) - ((2 / 7) * sqrt(6 / 5)))),
+        (sqrt((3 / 7) - ((2 / 7) * sqrt(6 / 5))), -sqrt((3 / 7) - ((2 / 7) * sqrt(6 / 5)))),
+        (-sqrt((3 / 7) + ((2 / 7) * sqrt(6 / 5))), sqrt((3 / 7) + ((2 / 7) * sqrt(6 / 5)))),
+        (sqrt((3 / 7) + ((2 / 7) * sqrt(6 / 5))), sqrt((3 / 7) + ((2 / 7) * sqrt(6 / 5))))
+    ]
+
     weights = [(18 + sqrt(30)) / 36, (18 + sqrt(30)) / 36, (18 - sqrt(30)) / 36, (18 - sqrt(30)) / 36]
 
     return points, weights
@@ -102,8 +107,6 @@ function mass_matrix(x1, x2, y1, y2, ro, A=1.0)
 
         for i in 1:4
             for j in 1:4
-                println("i: $i, j: $j")
-                println("basis_values[i]: $(basis_values[i]), basis_values[j]: $(basis_values[j])")
                 M[i, j] += w * basis_values[i] * basis_values[j] * ro * A * det(jacobian(x1, x2, y1, y2))
             end
         end
